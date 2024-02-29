@@ -1,10 +1,10 @@
-# MyFlix-client
+# myMovie-client
 
-Welcome to MyFlix-client, a web application that allows users to explore a collection of movies, manage their favorite movies, and update their user profile.
+Welcome to myMovie-client, a web application that allows users to explore a collection of movies, manage their favorite movies, and update their user profile.
 
 ## Overview
 
-MyFlix-client is a full-stack application built with React, Node.js, Express, and MongoDB. It provides features such as user authentication, profile management, and the ability to browse and interact with a catalog of movies.
+myMovie-client is a full-stack application built with React, Node.js, Express, and MongoDB. It provides features such as user authentication, profile management, and the ability to browse and interact with a catalog of movies.
 
 ## Features
 
