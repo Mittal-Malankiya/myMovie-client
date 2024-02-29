@@ -44,10 +44,12 @@ export const MainView = () => {
   if (books.length === 0) {
     return <div>The list is empty!</div>;
   }
-  const [selectedBook, setSelectedBook] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   if (selectedBook) {
-    return <BookView book={selectedBook} />;
+    return (
+      <BookView book={selectedBook} onBackClick={() => setSelectedBook(null)} />
+    );
   }
   return (
     <div>
