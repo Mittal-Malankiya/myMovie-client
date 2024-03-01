@@ -2954,7 +2954,7 @@ const App = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
         lineNumber: 5,
-        columnNumber: 12
+        columnNumber: 10
     }, undefined);
 };
 _c = App;
