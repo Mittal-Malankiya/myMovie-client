@@ -27317,58 +27317,21 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "Infinite Dreams",
-            image: "https://m.media-amazon.com/images/I/81GsozHQ86L._SY466_.jpg",
-            genre: "Horror",
-            director: "James Wan",
-            description: "Another terrifying horror film from James Wan that will haunt your dreams.",
-            bio: "James Wan is a Malaysian-Australian film director, screenwriter, and producer. He is best known for his work in the horror genre."
-        },
-        {
-            id: 2,
-            title: "Whispers in the Dark",
-            image: "https://m.media-amazon.com/images/I/516TEgcmF4L._SY445_SX342_.jpg",
-            genre: "Fantasy",
-            director: "Guillermo del Toro",
-            description: '"The Enchanted Kingdom," embark on a magical journey to a world where dragons soar through the skies, ancient spells come to life, and mystical creatures inhabit enchanted forests. Follow the epic quest of a young hero as they discover their hidden powers and join forces with a fellowship of wizards, elves, and talking animals.',
-            bio: "Guillermo del Torois a Malaysian-Australian film director, screenwriter, and producer. He is best known for his work in the horror genre."
-        },
-        {
-            id: 3,
-            title: "Beyond the Horizon",
-            image: "https://m.media-amazon.com/images/I/41v1e4oMpSL._SY445_SX342_.jpg",
-            genre: "Thriller",
-            director: "David Fincher",
-            description: "A pulse-pounding thriller that will keep you guessing until the very end.",
-            bio: "David Fincher is an American film director and producer. He is known for his dark and stylish thrillers, including 'Se7en' and 'Fight Club'."
-        },
-        {
-            id: 4,
-            title: "Shadow of the Past",
-            image: "https://m.media-amazon.com/images/I/51WuRWAAbuL._SY445_SX342_.jpg",
-            genre: "Adventure",
-            director: "Peter Jackson",
-            description: "A thrilling adventure set in a fantastical world filled with danger and wonder.",
-            bio: "Peter Jackson is a New Zealand film director, producer, and screenwriter. He is best known for directing the 'Lord of the Rings' film trilogy."
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 56,
+        lineNumber: 11,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 64,
+        lineNumber: 19,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27379,16 +27342,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 70,
+                lineNumber: 25,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 68,
+        lineNumber: 23,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "UAfHvlWAd1wFa8GeoO0ujiDHb/M=");
+_s(MainView, "jzuc4/Y81KLA8pUTcmWNL/aPH2I=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
