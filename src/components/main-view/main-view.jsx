@@ -3,8 +3,31 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
+  const storedUser = localStorage.getItem("user");
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    fetch("https://myflixapp-cw0r.onrender.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.docs.map((movie) => {
+          return {
+            id: movie.key,
+            title: movie.movieName,
+            genre: movie.genre,
+            description: movie.description,
+            director: movie.director,
+          };
+        });
+        setMovies(moviesFromApi);
+      });
+  }, [token]);
 
   if (selectedMovie) {
     return (
