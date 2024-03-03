@@ -16,9 +16,10 @@ export const MainView = () => {
     fetch("https://myflixapp-cw0r.onrender.com/movies")
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         const moviesFromApi = data.docs.map((movie) => {
           return {
-            movieid: movie.key,
+            movieid: movie.movieid,
             title: movie.movieName,
             genre: movie.genre,
             description: movie.description,
@@ -47,7 +48,7 @@ export const MainView = () => {
     <div>
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie.movieid}
           movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
