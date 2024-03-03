@@ -18,11 +18,12 @@ export const MainView = () => {
       .then((data) => {
         const moviesFromApi = data.docs.map((movie) => {
           return {
-            id: movie.key,
+            movieid: movie.key,
             title: movie.movieName,
             genre: movie.genre,
             description: movie.description,
             director: movie.director,
+            bio: movie.bio,
           };
         });
         setMovies(moviesFromApi);
