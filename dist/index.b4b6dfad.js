@@ -27327,7 +27327,7 @@ const MainView = ()=>{
         if (!token) return;
         fetch("https://myflixapp-cw0r.onrender.com/movies").then((response)=>response.json()).then((data)=>{
             console.log("Movie from API", data);
-            const moviesFromApi = data.docs.map((movie)=>{
+            const moviesFromApi = data.map((movie)=>{
                 return {
                     movieid: movie.movieid,
                     title: movie.movieName,
