@@ -27,7 +27,11 @@ export const MainView = () => {
             bio: movie.bio,
           };
         });
+
         setMovies(moviesFromApi);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, [token]);
 
