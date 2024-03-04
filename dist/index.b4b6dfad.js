@@ -28364,7 +28364,7 @@ MovieView.propTypes = {
         movieid: (0, _propTypesDefault.default).string,
         title: (0, _propTypesDefault.default).string.isRequired,
         description: (0, _propTypesDefault.default).string.isRequired,
-        genre: (0, _propTypesDefault.default).array,
+        genre: (0, _propTypesDefault.default).string,
         director: (0, _propTypesDefault.default).string,
         bio: (0, _propTypesDefault.default).string
     }).isRequired,
