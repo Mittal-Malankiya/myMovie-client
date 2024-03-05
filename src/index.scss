@@ -1,14 +1,5 @@
-// main-view.scss
+$color:steelblue;
 
-.main-view-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 20px;
-}
-
-.list-empty-message {
-  font-size: 18px;
-  color: red;
-  margin: 20px;
+.cine-verse {
+  color: $color;
 }
