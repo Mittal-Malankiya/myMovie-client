@@ -1,14 +1,5 @@
-.main-view-container {
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 20px;
-  display: flex;
-}
-
-.list-empty-message {
-  color: red;
-  margin: 20px;
-  font-size: 18px;
+.cine-verse {
+  color: #4682b4;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */

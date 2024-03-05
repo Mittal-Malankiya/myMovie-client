@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 export const LoginView = () => {
   // State to manage the input values
@@ -24,7 +26,8 @@ export const LoginView = () => {
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
-          // Assuming you have a function named onLoggedIn
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.user);
           onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
@@ -37,24 +40,31 @@ export const LoginView = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
+    <Form onSubmit={handleSubmit}>
+      <h1> Login to your account </h1>
+      <Form.Group controlId="formUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
+          minLength={5}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+      <br />
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
+          minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+      </Form.Group>
+      <br />
+      <Button type="submit">Login</Button>
+    </Form>
   );
 };
