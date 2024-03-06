@@ -73,8 +73,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: Honeydew;
-  --bs-body-bg-rgb: 240, 255, 240;
+  --bs-body-bg: #fefcfc;
+  --bs-body-bg-rgb: 254, 252, 252;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: #212529bf;
@@ -2654,11 +2654,11 @@ textarea.form-control-lg {
 }
 
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #f0fff0, 0 0 0 .25rem #2e8b5740;
+  box-shadow: 0 0 0 1px #fefcfc, 0 0 0 .25rem #2e8b5740;
 }
 
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #f0fff0, 0 0 0 .25rem #2e8b5740;
+  box-shadow: 0 0 0 1px #fefcfc, 0 0 0 .25rem #2e8b5740;
 }
 
 .form-range::-moz-focus-outer {
@@ -13189,10 +13189,6 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-}
-
-.cine-verse {
-  color: #4682b4;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
