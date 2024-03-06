@@ -32,6 +32,8 @@ export const MainView = () => {
             description: movie.description,
             director: movie.director,
             bio: movie.bio,
+            image:
+              "https://en.wikipedia.org/wiki/Inception#/media/File:Inception_(2010)_theatrical_poster.jpg",
           };
         });
 
@@ -63,8 +65,6 @@ export const MainView = () => {
           />
           <Row>
             <Col className="mb-5">
-              {/* <hr /> */}
-              {/* <h3> Similar Movies </h3> */}
               <Row>
                 {movies
                   .filter((movie) => {
