@@ -6,15 +6,12 @@ export const LoginView = ({ onLoggedIn }) => {
   // State to manage the input values
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const data = {
       userName: username,
       password: password,
     };
-
     fetch("https://myflixapp-cw0r.onrender.com/login", {
       method: "POST",
       headers: {
@@ -38,7 +35,6 @@ export const LoginView = ({ onLoggedIn }) => {
         alert("Something went wrong");
       });
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       <h1> Login to your account </h1>
@@ -50,6 +46,7 @@ export const LoginView = ({ onLoggedIn }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          placeholder="Enter a username"
         />
       </Form.Group>
       <br />
@@ -61,6 +58,7 @@ export const LoginView = ({ onLoggedIn }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          placeholder="Enter a password"
         />
       </Form.Group>
       <br />
