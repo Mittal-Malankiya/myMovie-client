@@ -32,8 +32,6 @@ export const MainView = () => {
             description: movie.description,
             director: movie.director,
             bio: movie.bio,
-            image:
-              "https://en.wikipedia.org/wiki/Inception#/media/File:Inception_(2010)_theatrical_poster.jpg",
           };
         });
 
@@ -76,7 +74,7 @@ export const MainView = () => {
                     );
                   })
                   .map((movie) => (
-                    <Col key={movie.id} md={4}>
+                    <Col className="mb-5" key={movie.id} md={4}>
                       <MovieCard
                         movie={movie}
                         onMovieClick={(newSelectedMovie) => {
