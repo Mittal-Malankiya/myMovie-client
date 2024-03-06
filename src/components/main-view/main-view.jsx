@@ -63,8 +63,8 @@ export const MainView = () => {
           />
           <Row>
             <Col className="mb-5">
-              <hr />
-              <h3> Similar Movies </h3>
+              {/* <hr /> */}
+              {/* <h3> Similar Movies </h3> */}
               <Row>
                 {movies
                   .filter((movie) => {
