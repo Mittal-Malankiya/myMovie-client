@@ -28539,8 +28539,8 @@ const LoginView = ()=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            Username: username,
-            Password: password
+            userName: username,
+            password: password
         };
         fetch("https://myflixapp-cw0r.onrender.com/login", {
             method: "POST",

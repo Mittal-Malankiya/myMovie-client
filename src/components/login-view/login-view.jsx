@@ -11,8 +11,8 @@ export const LoginView = () => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
+      userName: username,
+      password: password,
     };
 
     fetch("https://myflixapp-cw0r.onrender.com/login", {
