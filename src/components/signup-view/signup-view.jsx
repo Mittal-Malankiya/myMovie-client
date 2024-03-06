@@ -15,10 +15,10 @@ export const SignupView = () => {
     const isoDate = new Date(birthday);
 
     const data = {
-      UserName: username,
-      Email: email,
-      Birthday: isoDate,
-      Password: password,
+      userName: username,
+      email: email,
+      birthday: isoDate,
+      password: password,
     };
 
     fetch("https://myflixapp-cw0r.onrender.com/users", {
