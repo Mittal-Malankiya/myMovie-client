@@ -26,12 +26,13 @@ export const MainView = () => {
         console.log("Movie from API", data);
         const moviesFromApi = data.map((movie) => {
           return {
-            movieid: movie.movieid,
+            id: movie._id,
             title: movie.movieName,
             genre: movie.genre,
             description: movie.description,
             director: movie.director,
             bio: movie.bio,
+            banana: movie.image,
           };
         });
 
@@ -64,25 +65,16 @@ export const MainView = () => {
           <Row>
             <Col className="mb-5">
               <Row>
-                {movies
-                  .filter((movie) => {
-                    return (
-                      movie.id !== selectedMovie.id &&
-                      movie.genre.some((genre) =>
-                        selectedMovie.genre.includes(genre)
-                      )
-                    );
-                  })
-                  .map((movie) => (
-                    <Col className="mb-5" key={movie.id} md={4}>
-                      <MovieCard
-                        movie={movie}
-                        onMovieClick={(newSelectedMovie) => {
-                          setSelectedMovie(newSelectedMovie);
-                        }}
-                      />
-                    </Col>
-                  ))}
+                {movies.map((movie) => (
+                  <Col className="mb-5" key={movie.id} md={4}>
+                    <MovieCard
+                      movie={movie}
+                      onMovieClick={(newSelectedMovie) => {
+                        setSelectedMovie(newSelectedMovie);
+                      }}
+                    />
+                  </Col>
+                ))}
               </Row>
             </Col>
           </Row>
