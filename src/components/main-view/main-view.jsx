@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -6,6 +6,7 @@ import { SignupView } from "../signup-view/signup-view";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
   const storedUser = localStorage.getItem("user");
@@ -14,6 +15,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
   useEffect(() => {
     if (!token) {
       return;
@@ -44,29 +46,48 @@ export const MainView = () => {
   }, [token]);
 
   return (
-    <Row className="justify-content-md-center">
-      {!user ? (
-        <Col md={4}>
-          <LoginView
-            onLoggedIn={(user, token) => {
-              setUser(user);
-              setToken(token);
-            }}
-          />
-          <br />
-          <hr /> <SignupView />
-        </Col>
-      ) : selectedMovie ? (
-        <Col md={8}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)}
-          />
-          <Row>
-            <Col className="mb-5">
-              <Row>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginSignupView />} />
+      </Routes>
+    </BrowserRouter>
+  );
+
+  function Home() {
+    return (
+      <Row className="justify-content-md-center">
+        {user ? (
+          <>
+            {selectedMovie ? (
+              <Col md={8}>
+                <MovieView
+                  movie={selectedMovie}
+                  onBackClick={() => setSelectedMovie(null)}
+                />
+                <Row>
+                  <Col className="mb-5">
+                    <Row>
+                      {movies.map((movie) => (
+                        <Col className="mb-5" key={movie.id} md={4}>
+                          <MovieCard
+                            movie={movie}
+                            onMovieClick={(newSelectedMovie) => {
+                              setSelectedMovie(newSelectedMovie);
+                            }}
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            ) : movies.length === 0 ? (
+              <div className="text-center">The list is empty!</div>
+            ) : (
+              <>
                 {movies.map((movie) => (
-                  <Col className="mb-5" key={movie.id} md={4}>
+                  <Col className="mb-5" key={movie.id} md={3}>
                     <MovieCard
                       movie={movie}
                       onMovieClick={(newSelectedMovie) => {
@@ -75,36 +96,39 @@ export const MainView = () => {
                     />
                   </Col>
                 ))}
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      ) : movies.length === 0 ? (
-        <div className="text-center">The list is empty!</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <Col className="mb-5" key={movie.id} md={3}>
-              <MovieCard
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            </Col>
-          ))}
-          <Button
-            className="mt-3"
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
-          >
-            Logout
-          </Button>
-        </>
-      )}
-    </Row>
-  );
+                <Button
+                  className="mt-3 btn-md"
+                  onClick={() => {
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
+          </>
+        ) : (
+          <LoginSignupView />
+        )}
+      </Row>
+    );
+  }
+
+  function LoginSignupView() {
+    return (
+      <Col md={4}>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
+        <br />
+        <hr />
+        <SignupView />
+      </Col>
+    );
+  }
 };

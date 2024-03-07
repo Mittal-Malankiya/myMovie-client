@@ -5,12 +5,12 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} />
-      <Card.Body>
+      <Card.Body className="mb-3">
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.genre}</Card.Text>
-        <Card.Img src={movie.banana}></Card.Img>
+        <Card.Img src={movie.banana} className="mb-3"></Card.Img>
         <Button onClick={() => onMovieClick(movie)} variant="primary">
-          Description
+          Open
         </Button>
       </Card.Body>
     </Card>
@@ -18,7 +18,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 };
 MovieCard.propTypes = {
   movie: PropTypes.shape({
-    movieName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     banana: PropTypes.string.isRequired,
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
