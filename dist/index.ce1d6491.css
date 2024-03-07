@@ -13195,7 +13195,7 @@ textarea.form-control-lg {
   text-align: center;
   cursor: pointer;
   color: #fff;
-  background-color: #007bff;
+  background-color: #005a6a;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -13207,7 +13207,7 @@ textarea.form-control-lg {
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: #0c7297;
 }
 
 .back-button:active {
