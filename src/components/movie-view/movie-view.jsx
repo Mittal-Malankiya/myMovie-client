@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import "./movie-view.scss";
 import PropTypes from "prop-types";
 // import Button from "react-bootstrap/Button";
-export const MovieView = ({ movie }) => {
+export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
-  const selectedMovie = movie.find((m) => m.id === movieId);
+  const movie = movies.find((movie) => movie.id === movieId);
   return (
     <div>
       <div>
-        <img src={selectedMoviemovie.banana} alt={selectedMoviemovie.title} />
+        <img src={movie.banana} alt={movie.title} />
       </div>
       <div>
         <span>
