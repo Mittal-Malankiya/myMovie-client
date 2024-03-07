@@ -1,10 +1,15 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import "./movie-view.scss";
 import PropTypes from "prop-types";
-import Button from "react-bootstrap/Button";
-export const MovieView = ({ movie, onBackClick }) => {
+// import Button from "react-bootstrap/Button";
+export const MovieView = ({ movie }) => {
+  const { movieId } = useParams();
+  const selectedMovie = movie.find((m) => m.id === movieId);
   return (
     <div>
       <div>
-        <img src={movie.banana} alt={movie.title} />
+        <img src={selectedMoviemovie.banana} alt={selectedMoviemovie.title} />
       </div>
       <div>
         <span>
@@ -49,9 +54,9 @@ export const MovieView = ({ movie, onBackClick }) => {
             }
          `}
         </style>
-        <Button onClick={onBackClick} variant="flat" size="md">
-          Back{" "}
-        </Button>
+        <Link to={`/`}>
+          <button className="back-button">Back</button>
+        </Link>
       </>
     </div>
   );
