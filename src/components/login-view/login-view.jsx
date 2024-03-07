@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Card, CardBody } from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
   // State to manage the input values
@@ -36,33 +37,37 @@ export const LoginView = ({ onLoggedIn }) => {
       });
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <h1> Login to your account </h1>
-      <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="text"
-          minLength={5}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          placeholder="Enter a username"
-        />
-      </Form.Group>
-      <br />
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          minLength={8}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          placeholder="Enter a password"
-        />
-      </Form.Group>
-      <br />
-      <Button type="submit">Login</Button>
-    </Form>
+    <Card className="h-100">
+      <Card.Body className="mb-3">
+        <Form onSubmit={handleSubmit}>
+          <h1> Login to your account </h1>
+          <Form.Group controlId="formUsername">
+            <Form.Label>Username:</Form.Label>
+            <Form.Control
+              type="text"
+              minLength={5}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              placeholder="Enter a username"
+            />
+          </Form.Group>
+          <br />
+          <Form.Group controlId="formPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter a password"
+            />
+          </Form.Group>
+          <br />
+          <Button type="submit">Login</Button>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };

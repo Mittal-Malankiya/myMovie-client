@@ -13191,6 +13191,10 @@ textarea.form-control-lg {
   }
 }
 
+.login-card {
+  margin: 20px;
+}
+
 .back-button {
   text-align: center;
   cursor: pointer;
