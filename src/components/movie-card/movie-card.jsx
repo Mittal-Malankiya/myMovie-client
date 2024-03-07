@@ -8,7 +8,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.genre}</Card.Text>
-
+        <Card.Img src={movie.banana}></Card.Img>
         <Button onClick={() => onMovieClick(movie)} variant="primary">
           Description
         </Button>
@@ -19,6 +19,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     movieName: PropTypes.string.isRequired,
+    banana: PropTypes.string.isRequired,
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
 };
