@@ -51,8 +51,11 @@ export const MainView = () => {
         user={user}
         onLoggedOut={() => {
           setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}
       />
+      <br />
       <Row className="justify-content-md-center">
         <Routes>
           <Route
