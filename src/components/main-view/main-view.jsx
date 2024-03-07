@@ -3,7 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import Button from "react-bootstrap/Button";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -47,22 +47,14 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+        }}
+      />
       <Row className="justify-content-md-center">
         <Routes>
-          <Route
-            path="/signup"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={6}>
-                    <SignupView />
-                  </Col>
-                )}
-              </>
-            }
-          />
           <Route
             path="/login"
             element={
@@ -82,6 +74,21 @@ export const MainView = () => {
               </>
             }
           />
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={6}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
           <Route
             path="/movies/:movieId"
             element={
