@@ -4,6 +4,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -14,7 +15,22 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  // const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleUserUpdate = (updatedUser) => {
+    // Implement logic to update user information (e.g., make a request to the /users endpoint)
+    console.log("Updating user:", updatedUser);
+    // Call a function to update the user information
+    onUserUpdate(updatedUser);
+  };
+
+  const handleDeregister = () => {
+    // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
+    console.log("Deregistering user:", user);
+
+    // Call a function to deregister the user
+    onDeregister();
+    return <Navigate to="/login" replace />;
+  };
 
   useEffect(() => {
     if (!token) {
@@ -106,6 +122,19 @@ export const MainView = () => {
                   </Col>
                 )}
               </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProfileView
+                user={user}
+                onUserUpdate={handleUserUpdate}
+                onDeregister={() => {
+                  handleDeregister();
+                  return <Navigate to="/login" replace />;
+                }}
+              />
             }
           />
           <Route
