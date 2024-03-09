@@ -1,11 +1,13 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./movie-view.scss";
+import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
-// import Button from "react-bootstrap/Button";
-export const MovieView = ({ movies }) => {
+
+export const MovieView = ({ movies, onFavoriteToggle }) => {
   const { movieId } = useParams();
-  const movie = movies.find((movie) => movie.id === movieId);
+  const decodedMovieId = decodeURIComponent(movieId);
+  const movie = movies.find((m) => m.id === decodedMovieId);
   return (
     <div>
       <div>
@@ -55,21 +57,22 @@ export const MovieView = ({ movies }) => {
          `}
         </style>
         <Link to={`/`}>
-          <button className="back-button">Back</button>
+          <button className="back-button" style={{ cursor: "pointer" }}>
+            Back
+          </button>
         </Link>
+        <Button
+          variant="outline-primary"
+          style={{ cursor: "pointer" }}
+          onClick={() => onFavoriteToggle(movie._id)}
+        >
+          {movie.isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+        </Button>
       </>
     </div>
   );
 };
 MovieView.propTypes = {
-  movie: PropTypes.shape({
-    _id: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    genre: PropTypes.string,
-    director: PropTypes.string,
-    bio: PropTypes.string,
-    banana: PropTypes.string.isRequired,
-  }).isRequired,
-  onBackClick: PropTypes.func.isRequired,
+  movies: PropTypes.array.isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
 };

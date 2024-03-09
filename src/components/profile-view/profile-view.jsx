@@ -8,6 +8,7 @@ export const ProfileView = ({ user, onUserUpdate, onDeregister }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newEmail, setNewEmail] = useState(user.Email);
   const [newDOB, setNewDOB] = useState(user.Birthday);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleUpdate = () => {
     // Implement the logic to update user information
@@ -37,9 +38,14 @@ export const ProfileView = ({ user, onUserUpdate, onDeregister }) => {
         <Form.Group controlId="formPassword">
           <Form.Label>New Password:</Form.Label>
           <Form.Control
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <Form.Check
+            type="checkbox"
+            label="Show Password"
+            onChange={() => setShowPassword(!showPassword)}
           />
         </Form.Group>
         {newPassword && (
