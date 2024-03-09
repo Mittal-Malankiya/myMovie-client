@@ -4,21 +4,56 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { useNavigate } from "react-router-dom";
-import { navigate } from "react-router-dom";
-
 import { ProfileView } from "../profile-view/profile-view";
+import { useNavigate } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
+// import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+// import { Button, Container, Form, NavbarToggle } from "react-bootstrap";
+import { Button, Container, Form, Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 export const MainView = () => {
+  const navigate = useNavigate();
   const storedUser = localStorage.getItem("user");
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      setFavoriteMovies(user.FavoriteMovies || []);
+    }
+  }, [user]);
+  const handleFavoriteToggle = (movieId) => {
+    const url = `https://myflixapp-cw0r.onrender.com/users/${user.Username}/movies/${movieId}`;
+
+    // Check if the movie is already in favorites
+    const isFavorite = favoriteMovies.includes(movieId);
+
+    // Use the appropriate method based on whether it's adding or removing
+    const method = isFavorite ? "DELETE" : "POST";
+
+    fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        setFavoriteMovies(updatedUser.FavoriteMovies || []);
+      })
+      .catch((error) => {
+        console.error(
+          `Error toggling favorite for movie with ID ${movieId}:`,
+          error
+        );
+      });
+  };
 
   const handleUserUpdate = (updatedUser) => {
     // Implement logic to update user information (e.g., make a request to the /users endpoint)
@@ -30,13 +65,15 @@ export const MainView = () => {
   const handleDeregister = () => {
     // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
     console.log("Deregistering user:", user);
-
     // Call a function to deregister the user
-    onDeregister();
-    const navigate = useNavigate();
-
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
     navigate("/login", { replace: true });
   };
+  //   const navigate = useNavigate();
+  //   navigate("/login", { replace: true });
+  // };
 
   useEffect(() => {
     if (!token) {
@@ -66,111 +103,38 @@ export const MainView = () => {
         console.error("Error fetching data:", error);
       });
   }, [token]);
-
   return (
-    <BrowserRouter>
-      <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      />
-      <br />
-      <Row className="justify-content-md-center">
-        <Routes>
-          <Route
-            path="/login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={6}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={6}>
-                    <SignupView />
-                  </Col>
-                )}
-              </>
-            }
-          />
+    <Container>
+      <Navbar.Brand as={Link} to="/">
+        Movies App
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          {!user && (
+            <>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} to="/signup">
+                Signup
+              </Nav.Link>
+            </>
+          )}
+          {user && (
+            <>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
 
-          <Route
-            path="/movies/:movieId"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <Col md={10}>
-                    <MovieView movies={movies} />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProfileView
-                user={user}
-                onUserUpdate={handleUserUpdate}
-                onDeregister={() => {
-                  handleDeregister();
-                  return <Navigate to="/login" replace />;
-                }}
-              />
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col
-                        className="mb-4"
-                        key={`${movie.id}_movie_list`}
-                        lg={3}
-                        md={4}
-                        sm={12}
-                      >
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
-            }
-          />
-        </Routes>
-      </Row>
-    </BrowserRouter>
+              <Nav.Link as={Link} to="/profile">
+                Back
+              </Nav.Link>
+              <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+            </>
+          )}
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
   );
 };
