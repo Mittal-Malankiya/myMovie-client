@@ -5,7 +5,6 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
-
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -16,7 +15,6 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -41,40 +39,17 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
+        localStorage.setItem("movies", JSON.stringify(moviesFromApi));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, [token]);
 
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    setQuery(query);
-
-    const storedMovies = JSON.parse(localStorage.getItem("movies"));
-
-    //Filter movies by title and genre
-    const filteredMovies = storedMovies.filter((movie) => {
-      // Check if the movie's title or genre includes the search query
-      return (
-        movie.title.toLowerCase().includes(query.toLowerCase()) ||
-        movie.genre.some((genre) =>
-          genre.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    });
-
-    //Update the state with the filtered movies
-    setMovies(filteredMovies);
-  };
-
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
-        query={query}
-        handleSearch={handleSearch}
-        movies={movies}
         onLoggedOut={() => {
           setUser(null);
           setToken(null);
@@ -118,25 +93,6 @@ export const MainView = () => {
             }
           />
           <Route
-            path="/profile"
-            element={
-              <Row className="justify-content-center">
-                <Col sm={12} md={9} lg={7}>
-                  {user ? (
-                    <ProfileView
-                      token={token}
-                      user={user}
-                      movies={movies}
-                      onSubmit={(user) => setUser(user)}
-                    />
-                  ) : (
-                    <Navigate to="/login" />
-                  )}
-                </Col>
-              </Row>
-            }
-          />
-          <Route
             path="/movies/:movieId"
             element={
               <>
@@ -166,11 +122,40 @@ export const MainView = () => {
                     {movies.map((movie) => (
                       <Col className="mb-5" key={movie.id} sm={6} md={4} lg={3}>
                         <MovieCard
-                          isFavorite={user.FavoriteMovies.includes(movie.title)}
+                          key={movie.id}
                           movie={movie}
+                          user={user}
+                          token={token}
+                          setUser={setUser}
                         />
                       </Col>
                     ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <>
+                    <Col md={5}>
+                      <ProfileView
+                        user={user}
+                        token={token}
+                        setUser={setUser}
+                        movies={movies}
+                        // onDelete={() => {
+                        //   setUser(null);
+                        //   setToken(null);
+                        //   localStorage.clear();
+                        // }}
+                      />
+                    </Col>
                   </>
                 )}
               </>
