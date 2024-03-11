@@ -1,90 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Router, useNavigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
-import { Navbar, Nav, Container } from "react-bootstrap";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export const MainView = () => {
-  // const navigate = useNavigate();
-
   const storedUser = localStorage.getItem("user");
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-
-  useEffect(() => {
-    if (user) {
-      setFavoriteMovies(user.FavoriteMovies || []);
-    }
-  }, [user]);
-
-  const onLoggedOut = () => {
-    // Handle the logout logic here
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    setToken(null);
-    navigate("/login", { replace: true });
-  };
-
-  const handleFavoriteToggle = (movieId) => {
-    const url = `https://myflixapp-cw0r.onrender.com/users/${user.Username}/movies/${movieId}`;
-
-    // Check if the movie is already in favorites
-    const isFavorite = favoriteMovies.includes(movieId);
-
-    // Use the appropriate method based on whether it's adding or removing
-    const method = isFavorite ? "DELETE" : "POST";
-
-    fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((updatedUser) => {
-        setFavoriteMovies(updatedUser.FavoriteMovies || []);
-      })
-      .catch((error) => {
-        console.error(
-          `Error toggling favorite for movie with ID ${movieId}:`,
-          error
-        );
-      });
-  };
-
-  const handleUserUpdate = (updatedUser) => {
-    // Implement logic to update user information (e.g., make a request to the /users endpoint)
-    console.log("Updating user:", updatedUser);
-    // Call a function to update the user information
-    onUserUpdate(updatedUser);
-  };
-
-  const handleDeregister = () => {
-    // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
-    console.log("Deregistering user:", user);
-    // Call a function to deregister the user
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-    navigate("/login", { replace: true });
-  };
-  //   const navigate = useNavigate();
-  //   navigate("/login", { replace: true });
-  // };
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -115,40 +47,137 @@ export const MainView = () => {
       });
   }, [token]);
 
-  return (
-    <Router>
-      <Container>
-        <Navbar.Brand as={Link} to="/">
-          Movies App
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {!user && (
-              <>
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-                <Nav.Link as={Link} to="/signup">
-                  Signup
-                </Nav.Link>
-              </>
-            )}
-            {user && (
-              <>
-                <Nav.Link as={Link} to="/">
-                  Home
-                </Nav.Link>
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setQuery(query);
 
-                <Nav.Link as={Link} to="/profile">
-                  Back
-                </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+    const storedMovies = JSON.parse(localStorage.getItem("movies"));
+
+    //Filter movies by title and genre
+    const filteredMovies = storedMovies.filter((movie) => {
+      // Check if the movie's title or genre includes the search query
+      return (
+        movie.title.toLowerCase().includes(query.toLowerCase()) ||
+        movie.genre.some((genre) =>
+          genre.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    });
+
+    //Update the state with the filtered movies
+    setMovies(filteredMovies);
+  };
+
+  return (
+    <BrowserRouter>
+      <NavigationBar
+        user={user}
+        query={query}
+        handleSearch={handleSearch}
+        movies={movies}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
+      <br />
+      <Row className="justify-content-center">
+        <Routes>
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={4}>
+                    <SignupView />
+                  </Col>
+                )}
               </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Router>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={4}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Row className="justify-content-center">
+                <Col sm={12} md={9} lg={7}>
+                  {user ? (
+                    <ProfileView
+                      token={token}
+                      user={user}
+                      movies={movies}
+                      onSubmit={(user) => setUser(user)}
+                    />
+                  ) : (
+                    <Navigate to="/login" />
+                  )}
+                </Col>
+              </Row>
+            }
+          />
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col> The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView movies={movies} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} sm={6} md={4} lg={3}>
+                        <MovieCard
+                          isFavorite={user.FavoriteMovies.includes(movie.title)}
+                          movie={movie}
+                        />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
   );
 };
