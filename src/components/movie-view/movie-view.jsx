@@ -4,10 +4,10 @@ import "./movie-view.scss";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 
-export const MovieView = ({ movies, onFavoriteToggle }) => {
+export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
-  const decodedMovieId = decodeURIComponent(movieId);
-  const movie = movies.find((m) => m.id === decodedMovieId);
+  const movie = movies.find((movie) => movie.id === movieId);
+
   return (
     <div>
       <div>
@@ -61,18 +61,10 @@ export const MovieView = ({ movies, onFavoriteToggle }) => {
             Back
           </button>
         </Link>
-        <Button
-          variant="outline-primary"
-          style={{ cursor: "pointer" }}
-          onClick={() => onFavoriteToggle(movie._id)}
-        >
-          {movie.isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-        </Button>
       </>
     </div>
   );
 };
 MovieView.propTypes = {
   movies: PropTypes.array.isRequired,
-  onFavoriteToggle: PropTypes.func.isRequired,
 };
