@@ -27324,7 +27324,7 @@ parcelHelpers.export(exports, "MainView", ()=>MainView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactRouterDom = require("react-router-dom");
+// import { Router, useNavigate } from "react-router-dom";
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 var _loginView = require("../login-view/login-view");
@@ -27336,8 +27336,9 @@ var _row = require("react-bootstrap/Row");
 var _rowDefault = parcelHelpers.interopDefault(_row);
 var _col = require("react-bootstrap/Col");
 var _colDefault = parcelHelpers.interopDefault(_col);
+var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
-const MainView = ()=>{
+const MainView = ({ onUserUpdate, onLoggedOut })=>{
     _s();
     // const navigate = useNavigate();
     const storedUser = localStorage.getItem("user");
@@ -27351,16 +27352,6 @@ const MainView = ()=>{
     }, [
         user
     ]);
-    const onLoggedOut = ()=>{
-        // Handle the logout logic here
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        setUser(null);
-        setToken(null);
-        navigate("/login", {
-            replace: true
-        });
-    };
     const handleFavoriteToggle = (movieId)=>{
         const url = `https://myflixapp-cw0r.onrender.com/users/${user.Username}/movies/${movieId}`;
         // Check if the movie is already in favorites
@@ -27385,17 +27376,15 @@ const MainView = ()=>{
         // Call a function to update the user information
         onUserUpdate(updatedUser);
     };
-    const handleDeregister = ()=>{
-        // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
-        console.log("Deregistering user:", user);
-        // Call a function to deregister the user
-        setUser(null);
-        setToken(null);
-        localStorage.clear();
-        navigate("/login", {
-            replace: true
-        });
-    };
+    // const handleDeregister = () => {
+    //   // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
+    //   console.log("Deregistering user:", user);
+    //   // Call a function to deregister the user
+    //   setUser(null);
+    //   setToken(null);
+    //   localStorage.clear();
+    //   navigate("/login", { replace: true });
+    // };
     //   const navigate = useNavigate();
     //   navigate("/login", { replace: true });
     // };
@@ -27434,14 +27423,14 @@ const MainView = ()=>{
                     children: "Movies App"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 121,
+                    lineNumber: 118,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 124,
+                    lineNumber: 121,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -27457,7 +27446,7 @@ const MainView = ()=>{
                                         children: "Login"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 129,
+                                        lineNumber: 126,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -27466,7 +27455,7 @@ const MainView = ()=>{
                                         children: "Signup"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 132,
+                                        lineNumber: 129,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
@@ -27479,7 +27468,7 @@ const MainView = ()=>{
                                         children: "Home"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 139,
+                                        lineNumber: 136,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -27488,7 +27477,7 @@ const MainView = ()=>{
                                         children: "Back"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 143,
+                                        lineNumber: 140,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -27496,7 +27485,7 @@ const MainView = ()=>{
                                         children: "Logout"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 146,
+                                        lineNumber: 143,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
@@ -27504,23 +27493,23 @@ const MainView = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 126,
+                        lineNumber: 123,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 125,
+                    lineNumber: 122,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 120,
+            lineNumber: 117,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 119,
+        lineNumber: 116,
         columnNumber: 5
     }, undefined);
 };
@@ -27534,7 +27523,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","../profile-view/profile-view":"2vVqf","react-router-dom":"9xmpe","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","@parcel/transformer-js/src/esmodule-helpers.js":"hJLCI","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hvgdm","react-bootstrap":"3AD9A"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"hJLCI","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hvgdm"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

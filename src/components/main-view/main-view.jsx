@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Router, useNavigate } from "react-router-dom";
+// import { Router, useNavigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -10,10 +10,16 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export const MainView = () => {
+export const MainView = ({ onUserUpdate, onLoggedOut }) => {
   // const navigate = useNavigate();
 
   const storedUser = localStorage.getItem("user");
@@ -28,15 +34,6 @@ export const MainView = () => {
       setFavoriteMovies(user.FavoriteMovies || []);
     }
   }, [user]);
-
-  const onLoggedOut = () => {
-    // Handle the logout logic here
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    setToken(null);
-    navigate("/login", { replace: true });
-  };
 
   const handleFavoriteToggle = (movieId) => {
     const url = `https://myflixapp-cw0r.onrender.com/users/${user.Username}/movies/${movieId}`;
@@ -73,15 +70,15 @@ export const MainView = () => {
     onUserUpdate(updatedUser);
   };
 
-  const handleDeregister = () => {
-    // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
-    console.log("Deregistering user:", user);
-    // Call a function to deregister the user
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-    navigate("/login", { replace: true });
-  };
+  // const handleDeregister = () => {
+  //   // Implement logic to deregister the user (e.g., make a request to the /deregister endpoint)
+  //   console.log("Deregistering user:", user);
+  //   // Call a function to deregister the user
+  //   setUser(null);
+  //   setToken(null);
+  //   localStorage.clear();
+  //   navigate("/login", { replace: true });
+  // };
   //   const navigate = useNavigate();
   //   navigate("/login", { replace: true });
   // };
