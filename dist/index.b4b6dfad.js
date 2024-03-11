@@ -27549,7 +27549,12 @@ const MainView = ()=>{
                                             user: user,
                                             token: token,
                                             setUser: setUser,
-                                            movies: movies
+                                            movies: movies,
+                                            onDelete: ()=>{
+                                                setUser(null);
+                                                setToken(null);
+                                                localStorage.clear();
+                                            }
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
                                             lineNumber: 147,

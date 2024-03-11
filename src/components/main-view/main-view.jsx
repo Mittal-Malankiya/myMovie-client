@@ -149,11 +149,11 @@ export const MainView = () => {
                         token={token}
                         setUser={setUser}
                         movies={movies}
-                        // onDelete={() => {
-                        //   setUser(null);
-                        //   setToken(null);
-                        //   localStorage.clear();
-                        // }}
+                        onDelete={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear();
+                        }}
                       />
                     </Col>
                   </>
