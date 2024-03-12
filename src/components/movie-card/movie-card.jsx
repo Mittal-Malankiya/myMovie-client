@@ -7,14 +7,14 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
-    if (user.FavoriteMovies && user.FavoriteMovies.includes(movie._id)) {
+    if (user.FavoriteMovies && user.FavoriteMovies.includes(movie.id)) {
       setFavorite(true);
     }
   }, [user]);
 
   const addFavMovie = () => {
     fetch(
-      `https://myflixapp-cw0r.onrender.com/users/${user.username}/movies/${movie._id}`,
+      `https://myflixapp-cw0r.onrender.com/users/${user.userName}/movies/${movie.id}`,
       {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 
   const delFavMovie = () => {
     fetch(
-      `https://myflixapp-cw0r.onrender.com/users/${user.username}/movies/${movie._id}`,
+      `https://myflixapp-cw0r.onrender.com/users/${user.userName}/movies/${movie.id}`,
       { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => {
@@ -69,26 +69,23 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 
   return (
     <Card className="h-100">
-      <Card.Img variant="top" src={movie.image} />
       <Card.Body className="mb-3">
-        <Card.Img src={movie.banana} className="mb-3"></Card.Img>
+        <Card.Img variant="top" src={movie.banana} />
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.genre}</Card.Text>
         </Card.Body>
         <Card.Body>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-            <Button variant="outline-primary" style={{ cursor: "pointer" }}>
-              See more
-            </Button>
+            <Button variant="link">Open</Button>
           </Link>
-          <Card.Body>
-            {!favorite ? (
-              <Button onClick={addFavMovie}>Add Favorite</Button>
-            ) : (
-              <Button onClick={delFavMovie}>Remove</Button>
-            )}
-          </Card.Body>
+        </Card.Body>
+        <Card.Body>
+          {!favorite ? (
+            <Button onClick={addFavMovie}>Add?</Button>
+          ) : (
+            <Button onClick={delFavMovie}>Remove?</Button>
+          )}
         </Card.Body>
       </Card.Body>
     </Card>
@@ -96,6 +93,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 };
 MovieCard.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     banana: PropTypes.string.isRequired,
     Description: PropTypes.string,
