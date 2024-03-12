@@ -39,6 +39,7 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
+        console.log("Movies from API", movies);
         localStorage.setItem("movies", JSON.stringify(moviesFromApi));
       })
       .catch((error) => {
