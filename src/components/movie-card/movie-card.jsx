@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, user, token, setUser }) => {
+export const MovieCard = ({
+  movie,
+  filterByGenre,
+  user,
+  updateUser,
+  token,
+  appWebsite,
+  visibilityToggle,
+}) => {
   const [favorite, setFavorite] = useState(false);
   console.log("movie", movie);
 
@@ -73,7 +81,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} />
       <Card.Body className="mb-3">
-        <Card.Img src={movie.banana} className="mb-3"></Card.Img>
+        <Card.Img src={movie.Imagepath} className="mb-3"></Card.Img>
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.genre}</Card.Text>
@@ -101,10 +109,20 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    banana: PropTypes.string.isRequired,
-    Description: PropTypes.string,
-    Director: PropTypes.string,
+    Imagepath: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    director: PropTypes.string,
+    genre: PropTypes.string,
   }).isRequired,
+  filterByGenre: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    FavoriteMovies: PropTypes.array.isRequired,
+  }).isRequired,
+  updateUser: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+  appWebsite: PropTypes.string.isRequired,
+  visibilityToggle: PropTypes.bool,
 };

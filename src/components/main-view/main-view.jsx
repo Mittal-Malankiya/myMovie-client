@@ -34,7 +34,7 @@ export const MainView = () => {
             description: movie.description,
             director: movie.director,
             bio: movie.bio,
-            banana: movie.image,
+            Imagepath: movie.image,
           };
         });
 
