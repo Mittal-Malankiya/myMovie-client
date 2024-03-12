@@ -19,10 +19,11 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const data = {
       Username: username,
+      Password: password,
       Email: email,
       Birthdate: birthdate,
     };
-    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.Username}`, {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -31,6 +32,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
       },
     })
       .then((response) => {
+        console.log(response);
         if (response.ok) {
           alert("Update successful");
         } else {
@@ -42,11 +44,14 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           localStorage.setItem("user", JSON.stringify(updatedUser));
           setUser(updatedUser);
         }
+      })
+      .catch((error) => {
+        console.error("Error during update:", error);
       });
   };
 
   const deregAccount = () => {
-    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.Username}`, {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
