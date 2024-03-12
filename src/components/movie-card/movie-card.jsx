@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, user, token, setUser }) => {
   const [favorite, setFavorite] = useState(false);
+  console.log("movie", movie);
 
   useEffect(() => {
     if (user.FavoriteMovies && user.FavoriteMovies.includes(movie.id)) {
@@ -23,11 +24,12 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
       }
     )
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log("We couldn't add your favorite movie");
+        if (!response.ok) {
+          throw new Error(
+            `Failed to add favorite movie. Status: ${response.status}`
+          );
         }
+        return response.json();
       })
       .then((user) => {
         if (user) {
@@ -69,28 +71,34 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 
   return (
     <Card className="h-100">
+      <Card.Img variant="top" src={movie.image} />
       <Card.Body className="mb-3">
-        <Card.Img variant="top" src={movie.banana} />
+        <Card.Img src={movie.banana} className="mb-3"></Card.Img>
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.genre}</Card.Text>
         </Card.Body>
         <Card.Body>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-            <Button variant="link">Open</Button>
+            <Button variant="outline-primary" style={{ cursor: "pointer" }}>
+              See more
+            </Button>
           </Link>
-        </Card.Body>
-        <Card.Body>
-          {!favorite ? (
-            <Button onClick={addFavMovie}>Add?</Button>
-          ) : (
-            <Button onClick={delFavMovie}>Remove?</Button>
-          )}
+          <Card.Body>
+            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+              {!favorite ? (
+                <Button onClick={addFavMovie}>Add Favorite</Button>
+              ) : (
+                <Button onClick={delFavMovie}>Remove</Button>
+              )}
+            </Link>
+          </Card.Body>
         </Card.Body>
       </Card.Body>
     </Card>
   );
 };
+
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     id: PropTypes.string.isRequired,
