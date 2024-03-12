@@ -66,16 +66,18 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     <Container>
       <Row>
         <h2>Your Favorites</h2>
-        {favoriteMovies.map((movie) => (
-          <Col key={movie._id}>
-            <MovieCard
-              movie={movie}
-              setUser={setUser}
-              token={token}
-              user={user}
-            />
-          </Col>
-        ))}
+        {favoriteMovies.map((movie) => {
+          return (
+            <Col key={movie.id}>
+              <MovieCard
+                movie={movie}
+                setUser={setUser}
+                token={token}
+                user={user}
+              />
+            </Col>
+          );
+        })}
       </Row>
       <Row>
         <Col>
@@ -132,9 +134,12 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                 </Button>
                 <br></br>
                 <br></br>
-                <Button variant="primary" onClick={deregAccount}>
-                  Deregister Your Account{" "}
-                </Button>
+
+                <Link to="/login">
+                  <Button variant="primary" onClick={deregAccount}>
+                    Deregister Your Account
+                  </Button>
+                </Link>
               </Form>
             </Card.Body>
           </Card>
