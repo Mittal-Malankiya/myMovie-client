@@ -3,15 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({
-  movie,
-  filterByGenre,
-  user,
-  updateUser,
-  token,
-  appWebsite,
-  visibilityToggle,
-}) => {
+export const MovieCard = ({ movie, user, token, setUser }) => {
   const [favorite, setFavorite] = useState(false);
   console.log("movie", movie);
 
@@ -109,20 +101,17 @@ export const MovieCard = ({
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     Imagepath: PropTypes.string.isRequired,
     description: PropTypes.string,
     director: PropTypes.string,
     genre: PropTypes.string,
   }).isRequired,
-  filterByGenre: PropTypes.func.isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     FavoriteMovies: PropTypes.array.isRequired,
   }).isRequired,
-  updateUser: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
-  appWebsite: PropTypes.string.isRequired,
-  visibilityToggle: PropTypes.bool,
+  setUser: PropTypes.func.isRequired,
 };
