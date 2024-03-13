@@ -10,6 +10,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [birthdate, setBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  console.log(user);
+  console.log(movies);
   const favoriteMovies = movies.filter((m) =>
     user?.FavoriteMovies?.includes(m._id)
   );
@@ -18,9 +20,10 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     event.preventDefault();
     // const user = JSON.parse(localStorage.getItem("user"));
     const data = {
-      userName: username,
-      Email: email,
-      Birthdate: birthdate,
+      username,
+      password,
+      email,
+      birthdate,
     };
     fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
       method: "PUT",
