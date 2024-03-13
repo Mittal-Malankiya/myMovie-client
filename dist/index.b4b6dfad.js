@@ -27618,7 +27618,7 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
-const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, visibilityToggle })=>{
+const MovieCard = ({ movie, user, token, setUser })=>{
     _s();
     const [favorite, setFavorite] = (0, _react.useState)(false);
     console.log("movie", movie);
@@ -27675,7 +27675,7 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                 src: movie.image
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 82,
+                lineNumber: 74,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -27686,7 +27686,7 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                         className: "mb-3"
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 84,
+                        lineNumber: 76,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -27695,20 +27695,20 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                                 children: movie.title
                             }, void 0, false, {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 86,
+                                lineNumber: 78,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                                 children: movie.genre
                             }, void 0, false, {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 87,
+                                lineNumber: 79,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 85,
+                        lineNumber: 77,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -27723,12 +27723,12 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                                     children: "See more"
                                 }, void 0, false, {
                                     fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 91,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 90,
+                                lineNumber: 82,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -27739,42 +27739,42 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                                         children: "Add Favorite"
                                     }, void 0, false, {
                                         fileName: "src/components/movie-card/movie-card.jsx",
-                                        lineNumber: 98,
+                                        lineNumber: 90,
                                         columnNumber: 17
                                     }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                         onClick: delFavMovie,
                                         children: "Remove"
                                     }, void 0, false, {
                                         fileName: "src/components/movie-card/movie-card.jsx",
-                                        lineNumber: 100,
+                                        lineNumber: 92,
                                         columnNumber: 17
                                     }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 96,
+                                    lineNumber: 88,
                                     columnNumber: 13
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 95,
+                                lineNumber: 87,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 89,
+                        lineNumber: 81,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 83,
+                lineNumber: 75,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 81,
+        lineNumber: 73,
         columnNumber: 5
     }, undefined);
 };
@@ -27782,22 +27782,19 @@ _s(MovieCard, "J522ncCSn4LbSzFKTg3+eDoln+g=");
 _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        _id: (0, _propTypesDefault.default).string.isRequired,
+        id: (0, _propTypesDefault.default).string.isRequired,
         title: (0, _propTypesDefault.default).string.isRequired,
         Imagepath: (0, _propTypesDefault.default).string.isRequired,
         description: (0, _propTypesDefault.default).string,
         director: (0, _propTypesDefault.default).string,
         genre: (0, _propTypesDefault.default).string
     }).isRequired,
-    filterByGenre: (0, _propTypesDefault.default).func.isRequired,
     user: (0, _propTypesDefault.default).shape({
         _id: (0, _propTypesDefault.default).string.isRequired,
         FavoriteMovies: (0, _propTypesDefault.default).array.isRequired
     }).isRequired,
-    updateUser: (0, _propTypesDefault.default).func.isRequired,
     token: (0, _propTypesDefault.default).string.isRequired,
-    appWebsite: (0, _propTypesDefault.default).string.isRequired,
-    visibilityToggle: (0, _propTypesDefault.default).bool
+    setUser: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -41648,7 +41645,7 @@ const LoginView = ({ onLoggedIn })=>{
         }).then((response)=>response.json()).then((data)=>{
             console.log("Login response: ", data);
             if (data.user) {
-                localStorage.setItem("token", data.token);
+                localStorage.setItem("token", JSON.stringify(data.token));
                 localStorage.setItem("user", data.user);
                 onLoggedIn(data.user, data.token);
             } else alert("No such user");
@@ -42155,10 +42152,9 @@ const ProfileView = ({ user, token, movies, setUser })=>{
     const favoriteMovies = movies.filter((m)=>user?.FavoriteMovies?.includes(m._id));
     const handleUpdate = (event)=>{
         event.preventDefault();
-        const user = JSON.parse(localStorage.getItem("user"));
+        // const user = JSON.parse(localStorage.getItem("user"));
         const data = {
-            Username: username,
-            Password: password,
+            userName: username,
             Email: email,
             Birthdate: birthdate
         };
@@ -42170,16 +42166,17 @@ const ProfileView = ({ user, token, movies, setUser })=>{
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            console.log(response);
-            if (response.ok) alert("Update successful");
-            else alert("Update failed");
+            if (response.ok) return response.json(); // Parse JSON response
+            else throw new Error("Update failed");
         }).then((updatedUser)=>{
             if (updatedUser) {
                 localStorage.setItem("user", JSON.stringify(updatedUser));
                 setUser(updatedUser);
+                alert("Update successful");
             }
         }).catch((error)=>{
             console.error("Error during update:", error);
+            alert("Update failed");
         });
     };
     const deregAccount = ()=>{

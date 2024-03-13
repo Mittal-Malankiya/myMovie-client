@@ -16,10 +16,9 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
   const handleUpdate = (event) => {
     event.preventDefault();
-    const user = JSON.parse(localStorage.getItem("user"));
+    // const user = JSON.parse(localStorage.getItem("user"));
     const data = {
-      Username: username,
-      Password: password,
+      userName: username,
       Email: email,
       Birthdate: birthdate,
     };
@@ -32,21 +31,22 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
       },
     })
       .then((response) => {
-        console.log(response);
         if (response.ok) {
-          alert("Update successful");
+          return response.json(); // Parse JSON response
         } else {
-          alert("Update failed");
+          throw new Error("Update failed");
         }
       })
       .then((updatedUser) => {
         if (updatedUser) {
           localStorage.setItem("user", JSON.stringify(updatedUser));
           setUser(updatedUser);
+          alert("Update successful");
         }
       })
       .catch((error) => {
         console.error("Error during update:", error);
+        alert("Update failed");
       });
   };
 
