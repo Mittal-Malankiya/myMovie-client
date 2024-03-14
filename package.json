@@ -1,7 +1,7 @@
 {
   "name": "mymovie-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to myMovie-client, a web application that allows users to explore a collection of movies, manage their favorite movies, and update their user profile.",
   "scripts": {
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
@@ -22,5 +22,7 @@
     "@parcel/transformer-sass": "^2.11.0",
     "parcel": "^2.11.0",
     "process": "^0.11.10"
-  }
+  },
+  "main": "index.js",
+  "keywords": []
 }

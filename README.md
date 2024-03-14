@@ -1,14 +1,42 @@
 # myMovie-client
 
-Welcome to myMovie-client, a web application that allows users to explore a collection of movies, manage their favorite movies, and update their user profile.
+## Description
 
-## Overview
-
-myMovie-client is a full-stack application built with React, Node.js, Express, and MongoDB. It provides features such as user authentication, profile management, and the ability to browse and interact with a catalog of movies.
+myMovie-client is a React application designed for users to explore and engage with a vast collection of movies. Users can register an account, personalize their list of favorite movies, view detailed information about each movie, and manage their user profile. The application is built with React and uses Bootstrap for styling, incorporating a responsive design for optimal viewing on various devices.
 
 ## Features
 
-- **User Authentication**: Users can sign up, log in, and log out securely.
-- **User Profile**: Users can view and update their profile information, including username, password, email, and date of birth.
-- **Favorite Movies**: Users can add and remove movies from their list of favorite movies.
-- **Movie Catalog**: Users can explore a catalog of movies, view movie details, and search for movies based on genre and director.
+- Display a list of movies and detailed information about each movie.
+- User registration and login functionality for personalized experiences.
+- Ability to mark movies as favorites and manage a list of favorite movies.
+- Dynamic navigation that adjusts based on the user's authentication status.
+- User profile management, including updating personal information and deleting accounts.
+
+## Installation
+
+1. Clone the repository:
+
+   ```
+   https://github.com/Mittal-Malankiya/myMovie-client
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd myMovie-client
+   ```
+
+3. Install dependencies:
+   ```
+   npm install
+   ```
+
+## Usage
+
+To start the application, run the following command:
+
+```
+parcel src/index.html
+```
+
+This will launch the application in your default web browser.
