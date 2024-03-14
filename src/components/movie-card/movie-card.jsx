@@ -8,10 +8,8 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
   console.log("movie", movie);
 
   useEffect(() => {
-    if (user.FavoriteMovies && user.FavoriteMovies.includes(movie.id)) {
-      setFavorite(true);
-    }
-  }, [user]);
+    setFavorite(user.FavoriteMovies && user.FavoriteMovies.includes(movie.id));
+  }, [user, movie.id]);
 
   const addFavMovie = () => {
     fetch(
@@ -85,13 +83,13 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
             </Button>
           </Link>
           <Card.Body>
-            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-              {!favorite ? (
-                <Button onClick={addFavMovie}>Add Favorite</Button>
-              ) : (
-                <Button onClick={delFavMovie}>Remove</Button>
-              )}
-            </Link>
+            {/* <Link to={`/movies/${encodeURIComponent(movie.id)}`}> */}
+            {!favorite ? (
+              <Button onClick={addFavMovie}>Add Favorite</Button>
+            ) : (
+              <Button onClick={delFavMovie}>Remove</Button>
+            )}
+            {/* </Link> */}
           </Card.Body>
         </Card.Body>
       </Card.Body>
@@ -109,7 +107,7 @@ MovieCard.propTypes = {
     genre: PropTypes.string,
   }).isRequired,
   user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
     FavoriteMovies: PropTypes.array.isRequired,
   }).isRequired,
   token: PropTypes.string.isRequired,

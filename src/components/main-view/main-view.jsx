@@ -7,6 +7,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Form, InputGroup } from "react-bootstrap";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -15,6 +16,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -47,17 +49,48 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const handleSearch = (e) => {
+    const search = e.target.value;
+    console.log(search);
+
+    // const storedMovies = JSON.parse(localStorage.getItem("movies"));
+    const storedMovies = movies;
+    //Filter movies by title and genre
+    const filteredMovies = storedMovies.filter((movie) => {
+      // Check if the movie's title or genre includes the search query
+      return (
+        movie.title.toLowerCase().includes(search.toLowerCase()) ||
+        movie.genre.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+
+    //Update the state with the filtered movies
+    setMovies(filteredMovies);
+  };
+
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
+        search={search}
+        handleSearch={handleSearch}
+        movies={movies}
         onLoggedOut={() => {
           setUser(null);
           setToken(null);
           localStorage.clear();
         }}
       />
+      <Form>
+        <InputGroup className="my-4">
+          <Form.Control
+            onChange={(e) => handleSearch(e)}
+            placeholder="Search for a movie..."
+          />
+        </InputGroup>
+      </Form>
       <br />
+
       <Row className="justify-content-center">
         <Routes>
           <Route
@@ -157,6 +190,35 @@ export const MainView = () => {
                         }}
                       />
                     </Col>
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    {movies
+                      .filter((movie) => {
+                        return (
+                          search.trim() === "" ||
+                          movie.title
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        );
+                      })
+                      .map((movie) => (
+                        <Col className="mb-4" key={movie.id} md={3}>
+                          <MovieCard movie={movie} />
+                        </Col>
+                      ))}
                   </>
                 )}
               </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -9,12 +9,39 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [favoriteMovies, setfavoriteMovies] = useState([]);
 
-  const favoriteMovies = movies.filter((m) =>
-    user?.FavoriteMovies?.includes(m._id)
-  );
   console.log(user);
   console.log(movies);
+
+  useEffect(() => {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json(); // Parse JSON response
+        } else {
+          throw new Error("Get failed");
+        }
+      })
+      .then((updatedUser) => {
+        if (updatedUser) {
+          console.log("updated user", updatedUser);
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          setUser(updatedUser);
+          alert("GET successful");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during GET:", error);
+        alert("GETfailed");
+      });
+  }, []);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -54,7 +81,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   };
 
   const deregAccount = () => {
-    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.email}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,6 +94,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           );
           localStorage.removeItem("user"); // Remove user data from localStorage
           window.location.reload(); // Reload the page
+        } else {
           alert("Could not delete account");
         }
       })
@@ -95,7 +123,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           <Card>
             <Card.Body>
               <Card.Title>User Profile</Card.Title>
-              <Form onSubmit={handleUpdate}>
+              <Form>
                 <Form.Group controlId="profileUsername">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control
