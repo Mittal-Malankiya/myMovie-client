@@ -1,3 +1,26 @@
+.back-button {
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background-color: #005a6a;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color .3s, color .3s;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #0c7297;
+}
+
+.back-button:active {
+  background-color: #004080;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -271,7 +294,6 @@ p {
 abbr[title] {
   cursor: help;
   text-decoration-skip-ink: none;
-  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -2315,7 +2337,6 @@ progress {
 }
 
 .form-control::file-selector-button {
-  margin: -.375rem -.75rem;
   color: var(--bs-body-color);
   background-color: var(--bs-tertiary-bg);
   pointer-events: none;
@@ -2323,6 +2344,7 @@ progress {
   border-style: solid;
   border-width: 0;
   border-inline-end-width: var(--bs-border-width);
+  margin: -.375rem -.75rem;
   border-radius: 0;
   margin-inline-end: .75rem;
   padding: .375rem .75rem;
@@ -13194,28 +13216,4 @@ textarea.form-control-lg {
 .login-card {
   margin: 20px;
 }
-
-.back-button {
-  text-align: center;
-  cursor: pointer;
-  color: #fff;
-  background-color: #005a6a;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color .3s, color .3s;
-  display: inline-block;
-}
-
-.back-button:hover {
-  background-color: #0c7297;
-}
-
-.back-button:active {
-  background-color: #004080;
-}
-
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=index.2212206d.css.map */

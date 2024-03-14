@@ -10,11 +10,11 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [birthdate, setBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  console.log(user);
-  console.log(movies);
   const favoriteMovies = movies.filter((m) =>
     user?.FavoriteMovies?.includes(m._id)
   );
+  console.log(user);
+  console.log(movies);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -59,33 +59,35 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      if (response.ok) {
-        setUser(null);
-        alert("User de-registration successful");
-        localStorage.clear();
-      } else {
-        alert("Something didn't go right");
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert(
+            "Your account has been successfully deleted. Sorry to see you go!"
+          );
+          // window.location.reload(); // Reload the page        } else {
+          alert("Could not delete account");
+        }
+      })
+      .catch((e) => {
+        alert(e);
+      });
   };
 
   return (
     <Container>
       <Row>
-        <h2>Your Favorites</h2>
-        {favoriteMovies.map((movie) => {
-          return (
-            <Col key={movie.id}>
-              <MovieCard
-                movie={movie}
-                setUser={setUser}
-                token={token}
-                user={user}
-              />
-            </Col>
-          );
-        })}
+        <Col md={12}>
+          <h3>Your Favorite Movies:</h3>
+        </Col>
+        {favoriteMovies.map((movie) => (
+          <Col className="mb-4" key={movie.id} xl={2} lg={3} md={4} xs={6}>
+            <Figure>
+              <Figure.Image src={movie.ImagePath} />
+            </Figure>
+            <MovieCard movie={movie} />
+          </Col>
+        ))}{" "}
       </Row>
       <Row>
         <Col>
@@ -136,7 +138,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                   <br></br>
                 </Form.Group>
                 <Link to="login"></Link>
-
                 <Button variant="primary" type="submit" onClick={handleUpdate}>
                   Update Profile
                 </Button>
@@ -144,8 +145,17 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                 <br></br>
 
                 <Link to="/login">
-                  <Button variant="primary" onClick={deregAccount}>
-                    Deregister Your Account
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      if (
+                        confirm("Are you sure you want to delete your account?")
+                      ) {
+                        deregAccount();
+                      }
+                    }}
+                  >
+                    Delete Account
                   </Button>
                 </Link>
               </Form>
