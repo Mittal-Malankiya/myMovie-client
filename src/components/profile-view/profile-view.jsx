@@ -65,7 +65,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           alert(
             "Your account has been successfully deleted. Sorry to see you go!"
           );
-          // window.location.reload(); // Reload the page        } else {
+          localStorage.removeItem("user"); // Remove user data from localStorage
+          window.location.reload(); // Reload the page
           alert("Could not delete account");
         }
       })
