@@ -4,11 +4,13 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, user, token, setUser }) => {
-  const [favorite, setFavorite] = useState(false);
+  const [favoriteMovies, setfavoriteMovies] = useState(false);
   console.log("movie", movie);
 
   useEffect(() => {
-    setFavorite(user.FavoriteMovies && user.FavoriteMovies.includes(movie.id));
+    setfavoriteMovies(
+      user.favoriteMovies && user.favoriteMovies.includes(movie.id)
+    );
   }, [user, movie.id]);
 
   const addFavMovie = () => {
@@ -34,7 +36,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
           alert("A new movie was added to your favorites!");
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user);
-          setFavorite(true);
+          setfavoriteMovies(true);
         }
       })
       .catch((error) => {
@@ -59,7 +61,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
           alert("You deleted a movie from your favorites!");
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user);
-          setFavorite(false);
+          setfavoriteMovies(false);
         }
       })
       .catch((error) => {
@@ -73,8 +75,8 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
       <Card.Body className="mb-3">
         <Card.Img src={movie.Imagepath} className="mb-3"></Card.Img>
         <Card.Body>
-          <Card.Title>{movie.title}</Card.Title>
-          <Card.Text>{movie.genre}</Card.Text>
+          <Card.Title>{movie?.title}</Card.Title>
+          <Card.Text>{movie?.genre}</Card.Text>
         </Card.Body>
         <Card.Body>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
@@ -83,13 +85,13 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
             </Button>
           </Link>
           <Card.Body>
-            {/* <Link to={`/movies/${encodeURIComponent(movie.id)}`}> */}
-            {!favorite ? (
-              <Button onClick={addFavMovie}>Add Favorite</Button>
-            ) : (
-              <Button onClick={delFavMovie}>Remove</Button>
-            )}
-            {/* </Link> */}
+            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+              {!favoriteMovies ? (
+                <Button onClick={addFavMovie}>Add Favorite</Button>
+              ) : (
+                <Button onClick={delFavMovie}>Remove</Button>
+              )}
+            </Link>
           </Card.Body>
         </Card.Body>
       </Card.Body>
@@ -108,7 +110,7 @@ MovieCard.propTypes = {
   }).isRequired,
   user: PropTypes.shape({
     userName: PropTypes.string.isRequired,
-    FavoriteMovies: PropTypes.array.isRequired,
+    favoriteMovies: PropTypes.array.isRequired,
   }).isRequired,
   token: PropTypes.string.isRequired,
   setUser: PropTypes.func.isRequired,

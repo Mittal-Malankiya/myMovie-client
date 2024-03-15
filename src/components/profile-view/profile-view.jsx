@@ -29,11 +29,22 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           throw new Error("Get failed");
         }
       })
-      .then((updatedUser) => {
-        if (updatedUser) {
-          console.log("updated user", updatedUser);
-          localStorage.setItem("user", JSON.stringify(updatedUser));
-          setUser(updatedUser);
+      .then((user) => {
+        if (user) {
+          console.log("updated user", user);
+          localStorage.setItem("user", JSON.stringify(user));
+          setUser(user);
+          // from the user variable get the favorite movies Ids
+
+          const favoriteMovieIds = user.favoriteMovies || [];
+          //from the movies varibale apply a filter in which the id of the movie is the same as favorite movies ids take above
+          // Filter the movies based on the favorite movie IDs
+          const updatedFavoriteMovies = movies.filter((movie) =>
+            favoriteMovieIds.includes(movie.id)
+          );
+          setfavoriteMovies(updatedFavoriteMovies);
+          // Perform any additional actions if necessary
+          console.log("Favorite movies:", favoriteMovies);
           alert("GET successful");
         }
       })
@@ -105,19 +116,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
   return (
     <Container>
-      <Row>
-        <Col md={12}>
-          <h3>Your Favorite Movies:</h3>
-        </Col>
-        {favoriteMovies.map((movie) => (
-          <Col className="mb-4" key={movie.id} xl={2} lg={3} md={4} xs={6}>
-            <Figure>
-              <Figure.Image src={movie.ImagePath} />
-            </Figure>
-            <MovieCard movie={movie} />
-          </Col>
-        ))}{" "}
-      </Row>
       <Row>
         <Col>
           <Card>
@@ -192,6 +190,34 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           </Card>
         </Col>
       </Row>
+      <br />
+      <Card>
+        <h2 className="mt-5 text-center text-md-start">Favorite Movies</h2>
+        <Row className="justify-content-center">
+          {favoriteMovies.length > 0 ? (
+            favoriteMovies.map((movie) => (
+              <Col
+                sm={7}
+                md={5}
+                lg={3}
+                xl={2}
+                className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
+                key={movie.id}
+              >
+                <MovieCard
+                  movie={movie}
+                  addFavMovie={addFavMovie}
+                  delFavMovie={delFavMovie}
+                />
+              </Col>
+            ))
+          ) : (
+            <Col>
+              <p>There are no favorites Movies</p>
+            </Col>
+          )}
+        </Row>
+      </Card>
     </Container>
   );
 };
