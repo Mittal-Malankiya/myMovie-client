@@ -40,3 +40,9 @@ parcel src/index.html
 ```
 
 This will launch the application in your default web browser.
+
+## Technologies Used
+
+- Frontend: React, React Router, Bootstrap
+- Backend: Node.js, Express, MongoDB
+- Authentication: JWT (JSON Web Tokens)

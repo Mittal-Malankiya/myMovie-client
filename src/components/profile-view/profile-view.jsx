@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -9,12 +9,50 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [favoriteMovies, setfavoriteMovies] = useState([]);
 
-  const favoriteMovies = movies.filter((m) =>
-    user?.FavoriteMovies?.includes(m._id)
-  );
   console.log(user);
   console.log(movies);
+
+  useEffect(() => {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json(); // Parse JSON response
+        } else {
+          throw new Error("Get failed");
+        }
+      })
+      .then((user) => {
+        if (user) {
+          console.log("updated user", user);
+          localStorage.setItem("user", JSON.stringify(user));
+          setUser(user);
+          // from the user variable get the favorite movies Ids
+
+          const favoriteMovieIds = user.favoriteMovies || [];
+          //from the movies varibale apply a filter in which the id of the movie is the same as favorite movies ids take above
+          // Filter the movies based on the favorite movie IDs
+          const updatedFavoriteMovies = movies.filter((movie) =>
+            favoriteMovieIds.includes(movie.id)
+          );
+          setfavoriteMovies(updatedFavoriteMovies);
+          // Perform any additional actions if necessary
+          console.log("Favorite movies:", favoriteMovies);
+          alert("GET successful");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during GET:", error);
+        alert("GETfailed");
+      });
+  }, []);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -54,7 +92,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   };
 
   const deregAccount = () => {
-    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
+    fetch(`https://myflixapp-cw0r.onrender.com/users/${user.email}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -65,7 +103,9 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           alert(
             "Your account has been successfully deleted. Sorry to see you go!"
           );
-          // window.location.reload(); // Reload the page        } else {
+          localStorage.removeItem("user"); // Remove user data from localStorage
+          window.location.reload(); // Reload the page
+        } else {
           alert("Could not delete account");
         }
       })
@@ -77,24 +117,11 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   return (
     <Container>
       <Row>
-        <Col md={12}>
-          <h3>Your Favorite Movies:</h3>
-        </Col>
-        {favoriteMovies.map((movie) => (
-          <Col className="mb-4" key={movie.id} xl={2} lg={3} md={4} xs={6}>
-            <Figure>
-              <Figure.Image src={movie.ImagePath} />
-            </Figure>
-            <MovieCard movie={movie} />
-          </Col>
-        ))}{" "}
-      </Row>
-      <Row>
         <Col>
           <Card>
             <Card.Body>
               <Card.Title>User Profile</Card.Title>
-              <Form onSubmit={handleUpdate}>
+              <Form>
                 <Form.Group controlId="profileUsername">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control
@@ -163,6 +190,34 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           </Card>
         </Col>
       </Row>
+      <br />
+      <Card>
+        <h2 className="mt-5 text-center text-md-start">Favorite Movies</h2>
+        <Row className="justify-content-center">
+          {favoriteMovies.length > 0 ? (
+            favoriteMovies.map((movie) => (
+              <Col
+                sm={7}
+                md={5}
+                lg={3}
+                xl={2}
+                className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
+                key={movie.id}
+              >
+                <MovieCard
+                  movie={movie}
+                  addFavMovie={addFavMovie}
+                  delFavMovie={delFavMovie}
+                />
+              </Col>
+            ))
+          ) : (
+            <Col>
+              <p>There are no favorites Movies</p>
+            </Col>
+          )}
+        </Row>
+      </Card>
     </Container>
   );
 };
