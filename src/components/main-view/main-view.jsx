@@ -60,7 +60,8 @@ export const MainView = () => {
       // Check if the movie's title or genre includes the search query
       return (
         movie.title.toLowerCase().includes(search.toLowerCase()) ||
-        movie.genre.toLowerCase().includes(search.toLowerCase())
+        movie.genre.toLowerCase().includes(search.toLowerCase()) ||
+        movie.director.toLowerCase().includes(search.toLowerCase())
       );
     });
 
