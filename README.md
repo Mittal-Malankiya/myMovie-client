@@ -46,3 +46,4 @@ This will launch the application in your default web browser.
 - Frontend: React, React Router, Bootstrap
 - Backend: Node.js, Express, MongoDB
 - Authentication: JWT (JSON Web Tokens)
+- Database: MongoDB Atlas
