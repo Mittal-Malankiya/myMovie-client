@@ -11,7 +11,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [favoriteMovies, setfavoriteMovies] = useState([]);
 
-  console.log(user);
+  console.log("profile user", user);
   console.log(movies);
 
   useEffect(() => {
@@ -31,20 +31,26 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
       })
       .then((user) => {
         if (user) {
-          console.log("updated user", user);
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user);
+          console.log("updated user", user);
+
           // from the user variable get the favorite movies Ids
 
-          const favoriteMovieIds = user.favoriteMovies || [];
+          let favoriteMovieIds = user.favoriteMovies;
+          console.log("favorite movie ids", favoriteMovieIds);
+
           //from the movies varibale apply a filter in which the id of the movie is the same as favorite movies ids take above
           // Filter the movies based on the favorite movie IDs
+          console.log("movies in profile", movies);
+
           const updatedFavoriteMovies = movies.filter((movie) =>
             favoriteMovieIds.includes(movie.id)
           );
+          console.log("updatedFavoriteMovies", updatedFavoriteMovies);
           setfavoriteMovies(updatedFavoriteMovies);
           // Perform any additional actions if necessary
-          console.log("Favorite movies:", favoriteMovies);
+          // console.log("Favorite movies:", favoriteMovies);
           alert("GET successful");
         }
       })
@@ -206,8 +212,9 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
               >
                 <MovieCard
                   movie={movie}
-                  addFavMovie={addFavMovie}
-                  delFavMovie={delFavMovie}
+                  user={user}
+                  // addFavMovie={addFavMovie}
+                  // delFavMovie={delFavMovie}
                 />
               </Col>
             ))
