@@ -50,13 +50,13 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           console.log("updatedFavoriteMovies", updatedFavoriteMovies);
           setfavoriteMovies(updatedFavoriteMovies);
           // Perform any additional actions if necessary
-          // console.log("Favorite movies:", favoriteMovies);
+          console.log("Favorite movies:", favoriteMovies);
           alert("GET successful");
         }
       })
       .catch((error) => {
         console.error("Error during GET:", error);
-        alert("GETfailed");
+        alert("GET failed");
       });
   }, []);
 
