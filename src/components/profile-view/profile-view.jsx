@@ -12,7 +12,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [favoriteMovies, setfavoriteMovies] = useState([]);
 
   console.log("profile user", user);
-  console.log(movies);
+  console.log("Movies outside: ", movies);
 
   useEffect(() => {
     fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
@@ -37,7 +37,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
           // from the user variable get the favorite movies Ids
 
-          let favoriteMovieIds = user.favoriteMovies;
+          let favoriteMovieIds = user.favoritemovie;
           console.log("favorite movie ids", favoriteMovieIds);
 
           //from the movies varibale apply a filter in which the id of the movie is the same as favorite movies ids take above
@@ -203,16 +203,16 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           {favoriteMovies.length > 0 ? (
             favoriteMovies.map((movie) => (
               <Col
-                sm={7}
                 md={5}
-                lg={3}
-                xl={2}
                 className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
                 key={movie.id}
               >
                 <MovieCard
                   movie={movie}
                   user={user}
+                  token={token}
+                  setUser={setUser}
+
                   // addFavMovie={addFavMovie}
                   // delFavMovie={delFavMovie}
                 />
