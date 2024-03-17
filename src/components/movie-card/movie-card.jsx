@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
@@ -5,12 +6,15 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, user, token, setUser }) => {
   const [favoriteMovies, setfavoriteMovies] = useState(false);
-  console.log("movie", movie);
+  // console.log("movie", movie);
 
   useEffect(() => {
     setfavoriteMovies(
-      user.favoriteMovies && user.favoriteMovies.includes(movie.id)
+      user.favoritemovie && user.favoritemovie.includes(movie.id)
     );
+    // setfavoriteMovies(
+    //   user.favoriteMovies && user.favoriteMovies.includes(movie.id)
+    // );
   }, [user, movie.id]);
 
   const addFavMovie = (movieId) => {
@@ -75,8 +79,8 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
       <Card.Body className="mb-3">
         <Card.Img src={movie.Imagepath} className="mb-3"></Card.Img>
         <Card.Body>
-          <Card.Title>{movie?.title}</Card.Title>
-          <Card.Text>{movie?.genre}</Card.Text>
+          <Card.Title>{movie.title}</Card.Title>
+          <Card.Text>{movie.genre}</Card.Text>
         </Card.Body>
         <Card.Body>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>

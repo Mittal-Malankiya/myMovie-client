@@ -16,6 +16,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
+        setFilteredMovies([]);
         console.log("Movies from API", movies);
         localStorage.setItem("movies", JSON.stringify(moviesFromApi));
       })
@@ -51,10 +53,12 @@ export const MainView = () => {
 
   const handleSearch = (e) => {
     const search = e.target.value;
-    console.log(search);
+    console.log("Searchbar value: ", search);
 
     // const storedMovies = JSON.parse(localStorage.getItem("movies"));
     const storedMovies = movies;
+    console.log("Stored movies: ", storedMovies);
+
     //Filter movies by title and genre
     const filteredMovies = storedMovies.filter((movie) => {
       // Check if the movie's title or genre includes the search query
@@ -65,8 +69,10 @@ export const MainView = () => {
       );
     });
 
+    console.log("Filtered movies: ", filteredMovies);
+
     //Update the state with the filtered movies
-    setMovies(filteredMovies);
+    setFilteredMovies(filteredMovies);
   };
 
   return (
