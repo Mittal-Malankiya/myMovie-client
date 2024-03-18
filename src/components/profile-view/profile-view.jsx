@@ -212,9 +212,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                   user={user}
                   token={token}
                   setUser={setUser}
-
-                  // addFavMovie={addFavMovie}
-                  // delFavMovie={delFavMovie}
                 />
               </Col>
             ))
