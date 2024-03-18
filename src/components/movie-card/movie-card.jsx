@@ -17,7 +17,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
     // );
   }, [user, movie.id]);
 
-  const addFavMovie = (movieId) => {
+  const addFavMovie = () => {
     fetch(
       `https://myflixapp-cw0r.onrender.com/users/${user.userName}/movies/${movie.id}`,
       {
@@ -48,7 +48,7 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
       });
   };
 
-  const delFavMovie = (movieId) => {
+  const delFavMovie = () => {
     fetch(
       `https://myflixapp-cw0r.onrender.com/users/${user.userName}/movies/${movie.id}`,
       { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
