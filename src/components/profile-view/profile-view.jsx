@@ -121,12 +121,22 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   };
 
   return (
-    <Container>
+    <Container className="profile-view">
       <Row>
-        <Col>
-          <Card>
+        {/* Profile Information and Update User Profile */}
+        <Col md={8}>
+          <Card className="mt-2 mb-3">
             <Card.Body>
-              <Card.Title>User Profile</Card.Title>
+              <Card.Title>Profile Information</Card.Title>
+              <p>Name: {user.userName}</p>
+              <p>Email: {user.email}</p>
+              <p>Birthday: {user.birthday}</p>
+            </Card.Body>
+          </Card>
+
+          <Card className="mt-2 mb-3">
+            <Card.Body>
+              <Card.Title>Update User Profile</Card.Title>
               <Form>
                 <Form.Group controlId="profileUsername">
                   <Form.Label>Username:</Form.Label>
@@ -168,14 +178,14 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                     onChange={(e) => setBirthdate(e.target.value)}
                     required
                   />
-                  <br></br>
+                  <br />
                 </Form.Group>
                 <Link to="login"></Link>
                 <Button variant="primary" type="submit" onClick={handleUpdate}>
                   Update Profile
                 </Button>
-                <br></br>
-                <br></br>
+                <br />
+                <br />
 
                 <Link to="/login">
                   <Button
@@ -195,33 +205,38 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             </Card.Body>
           </Card>
         </Col>
+
+        {/* Favorite Movies */}
+        <Col md={6}>
+          <Card className="mt-2 mb-3">
+            <Card.Body>
+              <h3>Your Favorite Movies:</h3>
+              <Row className="justify-content-center">
+                {favoriteMovies.length > 0 ? (
+                  favoriteMovies.map((movie) => (
+                    <Col
+                      md={5}
+                      className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
+                      key={movie.id}
+                    >
+                      <MovieCard
+                        movie={movie}
+                        user={user}
+                        token={token}
+                        setUser={setUser}
+                      />
+                    </Col>
+                  ))
+                ) : (
+                  <Col>
+                    <p>There are no favorite movies.</p>
+                  </Col>
+                )}
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
-      <br />
-      <Card>
-        <h2 className="mt-5 text-center text-md-start">Favorite Movies</h2>
-        <Row className="justify-content-center">
-          {favoriteMovies.length > 0 ? (
-            favoriteMovies.map((movie) => (
-              <Col
-                md={5}
-                className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
-                key={movie.id}
-              >
-                <MovieCard
-                  movie={movie}
-                  user={user}
-                  token={token}
-                  setUser={setUser}
-                />
-              </Col>
-            ))
-          ) : (
-            <Col>
-              <p>There are no favorites Movies</p>
-            </Col>
-          )}
-        </Row>
-      </Card>
     </Container>
   );
 };

@@ -42,7 +42,7 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
-        setFilteredMovies([]);
+        setFilteredMovies(moviesFromApi);
         console.log("Movies from API", movies);
         localStorage.setItem("movies", JSON.stringify(moviesFromApi));
       })
@@ -160,7 +160,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-5" key={movie.id} sm={6} md={4} lg={3}>
                         <MovieCard
                           key={movie.id}
@@ -202,7 +202,7 @@ export const MainView = () => {
               </>
             }
           />
-          <Route
+          {/* <Route
             path="/"
             element={
               <>
@@ -230,7 +230,7 @@ export const MainView = () => {
                 )}
               </>
             }
-          />
+          /> */}
         </Routes>
       </Row>
     </BrowserRouter>
