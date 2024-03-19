@@ -202,35 +202,6 @@ export const MainView = () => {
               </>
             }
           />
-          {/* <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies
-                      .filter((movie) => {
-                        return (
-                          search.trim() === "" ||
-                          movie.title
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                        );
-                      })
-                      .map((movie) => (
-                        <Col className="mb-4" key={movie.id} md={3}>
-                          <MovieCard movie={movie} />
-                        </Col>
-                      ))}
-                  </>
-                )}
-              </>
-            }
-          /> */}
         </Routes>
       </Row>
     </BrowserRouter>
