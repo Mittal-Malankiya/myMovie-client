@@ -205,7 +205,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             </Card.Body>
           </Card>
         </Col>
-
+      </Row>
+      <Row>
         {/* Favorite Movies */}
         <Col md={6}>
           <Card className="mt-2 mb-3">
