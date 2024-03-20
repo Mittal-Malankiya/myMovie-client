@@ -123,8 +123,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   return (
     <Container className="profile-view">
       <Row>
-        {/* Profile Information and Update User Profile */}
-        <Col md={8}>
+        {/* Profile Information */}
+        <Col md={10}>
           <Card className="mt-2 mb-3">
             <Card.Body>
               <Card.Title>Profile Information</Card.Title>
@@ -133,7 +133,10 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
               <p>Birthday: {user.birthday}</p>
             </Card.Body>
           </Card>
+        </Col>
 
+        {/* Update User Profile */}
+        <Col md={12}>
           <Card className="mt-2 mb-3">
             <Card.Body>
               <Card.Title>Update User Profile</Card.Title>
@@ -178,10 +181,11 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                     onChange={(e) => setBirthdate(e.target.value)}
                     required
                   />
+                  <br />
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleUpdate}>
                   Update Profile
-                </Button>
+                </Button>{" "}
                 <Link to="/login">
                   <Button variant="danger" onClick={deregAccount}>
                     Delete Account
@@ -191,17 +195,17 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
-      {/* Favorite Movies */}
-      <Col md={6}>
-        <Card className="mt-2 mb-3">
-          <Card.Body>
-            <h3>Your Favorite Movies:</h3>
-            <Row className="justify-content-center">
+
+        {/* Favorite Movies */}
+        <Col md={12}>
+          <Card className="mt-2 mb-3">
+            <Card.Body>
+              <Card.Title>Favorite Movies</Card.Title>
+              {/* <Row className="justify-content-center"> */}
               {favoriteMovies.length > 0 ? (
                 favoriteMovies.map((movie) => (
                   <Col
-                    md={5}
+                    md={12}
                     className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
                     key={movie.id}
                   >
@@ -218,10 +222,11 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                   <p>There are no favorite movies.</p>
                 </Col>
               )}
-            </Row>
-          </Card.Body>
-        </Card>
-      </Col>
+              {/* </Row> */}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };
