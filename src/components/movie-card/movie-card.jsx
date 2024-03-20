@@ -87,16 +87,14 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
             <Button variant="outline-primary" style={{ cursor: "pointer" }}>
               See more
             </Button>
+          </Link>{" "}
+          <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+            {!favoriteMovies ? (
+              <Button onClick={addFavMovie}>Add Favorite</Button>
+            ) : (
+              <Button onClick={delFavMovie}>Remove</Button>
+            )}
           </Link>
-          <Card.Body>
-            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-              {!favoriteMovies ? (
-                <Button onClick={addFavMovie}>Add Favorite</Button>
-              ) : (
-                <Button onClick={delFavMovie}>Remove</Button>
-              )}
-            </Link>
-          </Card.Body>
         </Card.Body>
       </Card.Body>
     </Card>
