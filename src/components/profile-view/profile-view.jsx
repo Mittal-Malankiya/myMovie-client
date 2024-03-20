@@ -178,26 +178,12 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                     onChange={(e) => setBirthdate(e.target.value)}
                     required
                   />
-                  <br />
                 </Form.Group>
-                <Link to="login"></Link>
                 <Button variant="primary" type="submit" onClick={handleUpdate}>
                   Update Profile
                 </Button>
-                <br />
-                <br />
-
                 <Link to="/login">
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      if (
-                        confirm("Are you sure you want to delete your account?")
-                      ) {
-                        deregAccount();
-                      }
-                    }}
-                  >
+                  <Button variant="danger" onClick={deregAccount}>
                     Delete Account
                   </Button>
                 </Link>
@@ -206,38 +192,36 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        {/* Favorite Movies */}
-        <Col md={6}>
-          <Card className="mt-2 mb-3">
-            <Card.Body>
-              <h3>Your Favorite Movies:</h3>
-              <Row className="justify-content-center">
-                {favoriteMovies.length > 0 ? (
-                  favoriteMovies.map((movie) => (
-                    <Col
-                      md={5}
-                      className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
-                      key={movie.id}
-                    >
-                      <MovieCard
-                        movie={movie}
-                        user={user}
-                        token={token}
-                        setUser={setUser}
-                      />
-                    </Col>
-                  ))
-                ) : (
-                  <Col>
-                    <p>There are no favorite movies.</p>
+      {/* Favorite Movies */}
+      <Col md={6}>
+        <Card className="mt-2 mb-3">
+          <Card.Body>
+            <h3>Your Favorite Movies:</h3>
+            <Row className="justify-content-center">
+              {favoriteMovies.length > 0 ? (
+                favoriteMovies.map((movie) => (
+                  <Col
+                    md={5}
+                    className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
+                    key={movie.id}
+                  >
+                    <MovieCard
+                      movie={movie}
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                    />
                   </Col>
-                )}
-              </Row>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                ))
+              ) : (
+                <Col>
+                  <p>There are no favorite movies.</p>
+                </Col>
+              )}
+            </Row>
+          </Card.Body>
+        </Card>
+      </Col>
     </Container>
   );
 };
