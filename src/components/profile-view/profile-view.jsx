@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
+import "./profile-view.scss";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -121,10 +122,10 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   };
 
   return (
-    <Container className="profile-view">
+    <>
       <Row>
         {/* Profile Information */}
-        <Col md={10}>
+        <Col md={12}>
           <Card className="mt-2 mb-3">
             <Card.Body>
               <Card.Title>Profile Information</Card.Title>
@@ -183,19 +184,26 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                   />
                   <br />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={handleUpdate}>
-                  Update Profile
-                </Button>{" "}
-                <Link to="/login">
-                  <Button variant="danger" onClick={deregAccount}>
-                    Delete Account
-                  </Button>
-                </Link>
+                <div className="text-center">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={handleUpdate}
+                  >
+                    Update Profile
+                  </Button>{" "}
+                  <Link to="/login">
+                    <Button variant="danger" onClick={deregAccount}>
+                      Delete Account
+                    </Button>
+                  </Link>
+                </div>
               </Form>
             </Card.Body>
           </Card>
         </Col>
-
+      </Row>
+      <Row>
         {/* Favorite Movies */}
         <Col md={12}>
           <Card className="mt-2 mb-3">
@@ -205,8 +213,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
               {favoriteMovies.length > 0 ? (
                 favoriteMovies.map((movie) => (
                   <Col
-                    md={12}
-                    className="mx-2 mt-2 mb-5 col-6 similar-movies-img"
+                    md={6}
+                    className="mx-2 mt-2 mb-5 col-2 similar-movies-img"
                     key={movie.id}
                   >
                     <MovieCard
@@ -227,6 +235,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           </Card>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };

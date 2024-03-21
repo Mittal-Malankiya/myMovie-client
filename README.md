@@ -41,6 +41,14 @@ parcel src/index.html
 
 This will launch the application in your default web browser.
 
+## Project Links:
+
+- myMovie-client App repositry on Github: https://github.com/Mittal-Malankiya/myMovie-client
+
+- Link to live app: https://mymovieclient.netlify.app
+
+- Link to movie_api repositry on Github: https://github.com/Mittal-Malankiya/movie_api
+
 ## Technologies Used
 
 - Frontend: React, React Router, Bootstrap
