@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import "./profile-view.scss";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Row, Col, Form, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
@@ -11,9 +11,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   const [birthdate, setBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [favoriteMovies, setfavoriteMovies] = useState([]);
-
-  console.log("profile user", user);
-  console.log("Movies outside: ", movies);
 
   useEffect(() => {
     fetch(`https://myflixapp-cw0r.onrender.com/users/${user.userName}`, {
@@ -35,35 +32,25 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user);
           console.log("updated user", user);
-
           // from the user variable get the favorite movies Ids
-
           let favoriteMovieIds = user.favoritemovie;
           console.log("favorite movie ids", favoriteMovieIds);
-
-          //from the movies varibale apply a filter in which the id of the movie is the same as favorite movies ids take above
-          // Filter the movies based on the favorite movie IDs
           console.log("movies in profile", movies);
-
           const updatedFavoriteMovies = movies.filter((movie) =>
             favoriteMovieIds.includes(movie.id)
           );
           console.log("updatedFavoriteMovies", updatedFavoriteMovies);
           setfavoriteMovies(updatedFavoriteMovies);
-          // Perform any additional actions if necessary
           console.log("Favorite movies:", favoriteMovies);
-          alert("GET successful");
         }
       })
       .catch((error) => {
         console.error("Error during GET:", error);
-        alert("GET failed");
       });
   }, []);
 
   const handleUpdate = (event) => {
     event.preventDefault();
-    // const user = JSON.parse(localStorage.getItem("user"));
     const data = {
       username,
       password,
@@ -136,7 +123,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           </Card>
         </Col>
 
-        {/* Update User Profile */}
+        {/* Update User Profile  */}
         <Col md={12}>
           <Card className="mt-2 mb-3">
             <Card.Body>
@@ -209,7 +196,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
           <Card className="mt-2 mb-3">
             <Card.Body>
               <Card.Title>Favorite Movies</Card.Title>
-              {/* <Row className="justify-content-center"> */}
               {favoriteMovies.length > 0 ? (
                 favoriteMovies.map((movie) => (
                   <Col
@@ -230,7 +216,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
                   <p>There are no favorite movies.</p>
                 </Col>
               )}
-              {/* </Row> */}
             </Card.Body>
           </Card>
         </Col>
