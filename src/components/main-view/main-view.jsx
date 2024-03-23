@@ -54,11 +54,8 @@ export const MainView = () => {
   const handleSearch = (e) => {
     const search = e.target.value;
     console.log("Searchbar value: ", search);
-
-    // const storedMovies = JSON.parse(localStorage.getItem("movies"));
     const storedMovies = movies;
     console.log("Stored movies: ", storedMovies);
-
     //Filter movies by title and genre
     const filteredMovies = storedMovies.filter((movie) => {
       // Check if the movie's title or genre includes the search query
@@ -68,9 +65,7 @@ export const MainView = () => {
         movie.director.toLowerCase().includes(search.toLowerCase())
       );
     });
-
     console.log("Filtered movies: ", filteredMovies);
-
     //Update the state with the filtered movies
     setFilteredMovies(filteredMovies);
   };
