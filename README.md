@@ -12,6 +12,10 @@ myMovie-client is a React application designed for users to explore and engage w
 - Dynamic navigation that adjusts based on the user's authentication status.
 - User profile management, including updating personal information and deleting accounts.
 
+## Screenshort of the APP
+
+![alt text](3.png)
+
 ## Installation
 
 1. Clone the repository:
